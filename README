@@ -23,5 +23,5 @@ List of files
 ---------------------------
 compilation
 
-testO2 : run "eq_test.cpp" with -O2
-testO3 : run "eq_test.cpp" with -O3 
+test_O2 : run "eq_test.cpp" with -O2
+test_O3 : run "eq_test.cpp" with -O3 

@@ -263,7 +263,7 @@ void speed_test_gimli(int iter)
 		}
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 * 1000)) / (CLOCKS_PER_SEC * iter);
-		std::cout << "test #" << j << " time : " << time_elapsed << "micro sec" << std::endl;
+		std::cout << "test #" << i << " time : " << time_elapsed << "micro sec" << std::endl;
 	}
 
 }
@@ -492,7 +492,7 @@ int main()
 	
 
 	//match_test();
-	speed_test_gimli(100000);
+	speed_test_gimli(10000000);
 	speed_test_ref_eq8(100000);
 	speed_test_1(100000);
 	speed_test_2(10000);

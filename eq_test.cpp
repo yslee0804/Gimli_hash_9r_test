@@ -254,7 +254,7 @@ void speed_test_gimli(int iter)
 
 	std::cout << "Gimli permutation speed test" << std::endl;
 
-	for (int i = 0; i < 5; < i++)
+	for (int i = 0; i < 5; i++)
 	{
 		start_t = clock();
 		for (int j = 0; j < iter; j++)

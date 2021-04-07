@@ -2,21 +2,19 @@
 
 This repository contains implementations
 
----------------------------
-REQUIREMENTS
+
+# Requirements
 
 The folder of "cryptominisat" obtained from "https://github.com/msoos/cryptominisat"
 should be download and build
 then modify directions in "makefile"
 
----------------------------
-Testing environment
+# Testing environment
 
 Ubuntu 16.04.4 LTS
 g++ 5.5.0
 
----------------------------
-List of files
+# List of files
 - Makefile
 - README
 - gimli.cpp : modified Gimli codes from Gimli reference implementation
@@ -24,8 +22,12 @@ List of files
 - gimli_9r_solver.cpp /.hpp : solving problems with SAT solver
 - eq_test.cpp : match and time test for functions in "gimli_9r_solver.cpp"
 
----------------------------
-compilation
+# compilation
 
 test_O2 : run "eq_test.cpp" with -O2
 test_O3 : run "eq_test.cpp" with -O3 
+
+# Contact
+
+[E-mail](yslee.CIST@gmail.com)
+

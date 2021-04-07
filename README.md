@@ -29,8 +29,8 @@ The testing is performed on the following testing environment:
 
 # Compilation
 
-test_O2 : run "eq_test.cpp" with -O2
-test_O3 : run "eq_test.cpp" with -O3 
+- test_O2 : run "eq_test.cpp" with -O2
+- test_O3 : run "eq_test.cpp" with -O3 
 
 # Contact
 

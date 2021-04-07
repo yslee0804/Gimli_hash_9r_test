@@ -30,5 +30,5 @@ test_O3 : run "eq_test.cpp" with -O3
 
 # Contact
 
-For more information on this code, please contact the author Youngsung Kim via [E-mail](yslee.CIST@gmail.com).
+For more information on this code, please contact the author Youngsung Kim via [E-mail](yslee.CIST@gmail.com)
 

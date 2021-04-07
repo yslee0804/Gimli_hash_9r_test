@@ -23,7 +23,7 @@ The testing is performed on the following testing environment:
 - Ubuntu 16.04.4 LTS
 - g++ 5.5.0
 
-# compilation
+# Compilation
 
 test_O2 : run "eq_test.cpp" with -O2
 test_O3 : run "eq_test.cpp" with -O3 

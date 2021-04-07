@@ -2,7 +2,11 @@
 
 This repository contains implementations
 
+논문 Abstract 정도의 소개 (공격 결과), 본 코드는 전체 공격 중 어떤 과정인지 소개
+
 # Results
+
+이 코드가 전체 공격 중에서 테스트하고자 하는 것이 무엇이고, 테스트 결과는 무엇인지?
 
 # List of files
 - Makefile

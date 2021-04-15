@@ -6,11 +6,19 @@
 #include "gimli.hpp"
 #include "gimli_9r_solver.hpp"
 
+/*
+	Here is functions for testing function in "gimli_9r_solver.cpp"
+*/
+
+/*
+	Testing function that functions in "gimli_9r_solver.cpp" can find 'right' solutions
+*/
 void match_test()
 {
 	vector<uint32_t> solutions;
 	uint32_t column[3],column2[3];
 	uint32_t x, y, z, yp, zp, ox, oy, oz, tox, toy, toz, fox, nox;
+	int iter = 100;
 	int ns;
 	int ns1=0, ns2=0, ns3=0, ns4=0, ns5=0, nsref=0;
 	int i = 0, j = 0;
@@ -19,8 +27,9 @@ void match_test()
 	std::mt19937 gen_rand_num(rand_seed());
 	std::uniform_int_distribution<uint32_t> dis;
 
-	while (i < 10000)
+	while (i < iter)
 	{
+		//variants for random inputs
 		x = dis(gen_rand_num);
 		y = dis(gen_rand_num);
 		z = dis(gen_rand_num);
@@ -86,11 +95,11 @@ void match_test()
 		{
 			for (j = 0; j < ns; j++)
 			{
-				column[0] = solutions[2*j + 0];
+				column[0] = solutions[j];
 				column[1] = y;
 				column[2] = z;
 				gimli_SPSP_column(column);
-				if ((column[0] != solutions[2*j+1]) | (column[1] != toy) | (column[2] != toz))
+				if ((column[1] != toy) | (column[2] != toz))
 				{
 					std::cout << "sol_finder1_error" << std::endl;
 					std::cout << "y : " << y << std::endl;
@@ -116,11 +125,11 @@ void match_test()
 		{
 			for (j = 0; j < ns; j++)
 			{
-				column[0] = solutions[3*j + 0];
+				column[0] = solutions[j];
 				column[1] = y;
 				column[2] = z;
 				gimli_SPSP_column(column);
-				if ((column[0] != tox) | (column[1] != solutions[3*j + 1]) | (column[2] != solutions[3*j + 2]))
+				if ((column[0] != tox))
 				{
 					std::cout << "sol_finder2_error" << std::endl;
 					std::cout << "y : " << y << std::endl;
@@ -145,10 +154,10 @@ void match_test()
 			for (j = 0; j < ns; j++)
 			{
 				column[0] = x;
-				column[1] = solutions[3*j + 0];
-				column[2] = solutions[3*j + 1];
+				column[1] = solutions[2*j + 0];
+				column[2] = solutions[2*j + 1];
 				gimli_SPSP_column(column);
-				if ((column[0] != solutions[3*j + 2]) | (column[1] != toy) | (column[2] != toz))
+				if ((column[1] != toy) | (column[2] != toz))
 				{
 					std::cout << "sol_finder3_error" << std::endl;
 					std::cout << "x : " << x << std::endl;
@@ -173,10 +182,10 @@ void match_test()
 			for (j = 0; j < ns; j++)
 			{
 				column[0] = x;
-				column[1] = solutions[3*j + 0];
-				column[2] = solutions[3*j + 1];
+				column[1] = solutions[2*j + 0];
+				column[2] = solutions[2*j + 1];
 				gimli_SP_column(column);
-				if ((column[0] != solutions[3*j + 2]) | (column[1] != oy) | (column[2] != oz))
+				if ((column[1] != oy) | (column[2] != oz))
 				{
 					std::cout << "sol_finder4_error" << std::endl;
 					std::cout << "x : " << x << std::endl;
@@ -201,8 +210,8 @@ void match_test()
 			for (j = 0; j < ns; j++)
 			{
 				column[0] = x;
-				column[1] = solutions[4*j + 0];
-				column[2] = solutions[4*j + 1];
+				column[1] = solutions[2*j + 0];
+				column[2] = solutions[2*j + 1];
 				gimli_SP_column(column);
 				if (column[0] != ox)
 				{
@@ -215,7 +224,7 @@ void match_test()
 				}
 				column[0] = nox;
 				gimli_SPSP_column(column);
-				if ((column[0] != fox) | (column[1] != solutions[4*j + 2]) | (column[2] != solutions[4*j + 3]))
+				if ((column[0] != fox))
 				{
 					std::cout << "sol_finder5_fox_error" << std::endl;
 					std::cout << "x : " << x << std::endl;
@@ -237,16 +246,21 @@ void match_test()
 		//	std::cout << "fox : " << fox << std::endl;
 		//}
 		i++;
-		//std::cout << "." << std::endl;
 	}
-	std::cout << "average solutions of ref 8 : " << (double)(nsref)/(double)(10000) << std::endl;
-	std::cout << "average solutions of finder 1 : " << (double)(ns1)/(double)(10000) << std::endl;
-	std::cout << "average solutions of finder 2 : " << (double)(ns2)/(double)(10000) << std::endl;
-	std::cout << "average solutions of finder 3 : " << (double)(ns3)/(double)(10000) << std::endl;
-	std::cout << "average solutions of finder 4 : " << (double)(ns4)/(double)(10000) << std::endl;
-	std::cout << "average solutions of finder 5 : " << (double)(ns5)/(double)(10000) << std::endl;
+	std::cout << "average solutions of ref 8 : " << (double)(nsref)/(double)(iter) << std::endl;
+	std::cout << "average solutions of finder 1 : " << (double)(ns1)/(double)(iter) << std::endl;
+	std::cout << "average solutions of finder 2 : " << (double)(ns2)/(double)(iter) << std::endl;
+	std::cout << "average solutions of finder 3 : " << (double)(ns3)/(double)(iter) << std::endl;
+	std::cout << "average solutions of finder 4 : " << (double)(ns4)/(double)(iter) << std::endl;
+	std::cout << "average solutions of finder 5 : " << (double)(ns5)/(double)(iter) << std::endl;
 }
 
+/*
+	Speed test for full round Gimli
+	print the result in commend window
+	
+	iter : number of iteration for time test
+*/
 void speed_test_gimli(int iter)
 {
 	clock_t start_t, finish_t;
@@ -268,6 +282,12 @@ void speed_test_gimli(int iter)
 
 }
 
+/*
+	Speed test for "Gimli_ref_eq8_sol" function
+	print the result in commend window
+
+	iter : number of iteration for time test
+*/
 void speed_test_ref_eq8(int iter)
 {
 	clock_t start_t, finish_t;
@@ -305,6 +325,12 @@ void speed_test_ref_eq8(int iter)
 	}
 }
 
+/*
+	Speed test for "Gimli_9r_sol_finder_1" function
+	print the result in commend window
+
+	iter : number of iteration for time test
+*/
 void speed_test_1(int iter)
 {
 	clock_t start_t, finish_t;
@@ -338,10 +364,16 @@ void speed_test_1(int iter)
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 * 1000)) / (CLOCKS_PER_SEC*iter);
 		std::cout << "test #" << j << " time : " << time_elapsed << " micro sec" << std::endl;
-		std::cout << "test #" << j << " total solution number : " << t_num_of_solutions << std::endl;
+		std::cout << "test #" << j << " average solution number : " << t_num_of_solutions << std::endl;
 	}
 }
 
+/*
+	Speed test for "Gimli_9r_sol_finder_2" function
+	print the result in commend window
+
+	iter : number of iteration for time test
+*/
 void speed_test_2(int iter)
 {
 	clock_t start_t, finish_t;
@@ -374,10 +406,16 @@ void speed_test_2(int iter)
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 * 1000)) / (CLOCKS_PER_SEC*iter);
 		std::cout << "test #" << j << " time : " << time_elapsed << " micro sec" << std::endl;
-		std::cout << "test #" << j << " total solution number : " << t_num_of_solutions/(double)iter << std::endl;
+		std::cout << "test #" << j << " average solution number : " << t_num_of_solutions/(double)iter << std::endl;
 	}
 }
 
+/*
+	Speed test for "Gimli_9r_sol_finder_3" function
+	print the result in commend window
+
+	iter : number of iteration for time test
+*/
 void speed_test_3(int iter)
 {
 	clock_t start_t, finish_t;
@@ -409,10 +447,16 @@ void speed_test_3(int iter)
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 * 1000)) / (CLOCKS_PER_SEC*iter);
 		std::cout << "test #" << j << " time : " << time_elapsed << " micro sec" << std::endl;
-		std::cout << "test #" << j << " total solution number : " << t_num_of_solutions/(double)iter << std::endl;
+		std::cout << "test #" << j << " average solution number : " << t_num_of_solutions/(double)iter << std::endl;
 	}
 }
 
+/*
+	Speed test for "Gimli_9r_sol_finder_4" function
+	print the result in commend window
+
+	iter : number of iteration for time test
+*/
 void speed_test_4(int iter)
 {
 	clock_t start_t, finish_t;
@@ -445,12 +489,16 @@ void speed_test_4(int iter)
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 * 1000)) / (CLOCKS_PER_SEC*iter);
 		std::cout << "test #" << j << " time : " << time_elapsed << " micro sec" << std::endl;
-		std::cout << "test #" << j << " total solution number : " << t_num_of_solutions/(double)iter << std::endl;
+		std::cout << "test #" << j << " average solution number : " << t_num_of_solutions/(double)iter << std::endl;
 	}
 }
 
+/*
+	Speed test for "Gimli_9r_sol_finder_5" function
+	print the result in commend window
 
-
+	iter : number of iteration for time test
+*/
 void speed_test_5(int iter)
 {
 	clock_t start_t, finish_t;
@@ -483,7 +531,7 @@ void speed_test_5(int iter)
 		finish_t = clock();
 		double time_elapsed = ((double)((finish_t - start_t) * 1000 )) / (CLOCKS_PER_SEC*iter);
 		std::cout << "test #" << j << " time : " << time_elapsed << " mili sec" << std::endl;
-		std::cout << "test #" << j << " total solution number : " << t_num_of_solutions/(double)iter << std::endl;
+		std::cout << "test #" << j << " average solution number : " << t_num_of_solutions/(double)iter << std::endl;
 	}
 }
 

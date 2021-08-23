@@ -1,12 +1,25 @@
 # A New Preimage Attack on Gimli-Hash
 
-This repository contains implementations
+This repository contains implementations about solving equations which replace precomputation table in preimage attack on 5-9-round Gimli-Hash.
+Our code tests two things:
+1. Average time to solve the following equations using CryptoMiniSAT
+2. Average number of solutions for each equations
 
-논문 Abstract 정도의 소개 (공격 결과), 본 코드는 전체 공격 중 어떤 과정인지 소개
+The equations as follow
+Eq1 : Given h_03, c, f, and x, find a, b such that SP(h_03,a,b) = (c,d,e) and SP^2(x,d,e) = (f,g,h)
+Eq2 : Given h_02, d, and e, find c such that SP(h_02,a,b)=(c,d,e)
+Eq3 : Given b, c, and d, find a, e, and f such that SP^2(a,b,c)=(d,e,f)
+Eq4 : Given a, e, and f, find b, c, and d such that SP^2(a,b,c)=(d,e,f)
 
 # Results
+All equations has average about 1 solutions
+The average running time as follow :
 
-이 코드가 전체 공격 중에서 테스트하고자 하는 것이 무엇이고, 테스트 결과는 무엇인지?
+  Full-round(24-round) Gimli : 0.5875 micro second
+  Eq1 : 343200.2 micro second
+  Eq2 : 125.9327 micro second
+  Eq3 : 763.1252 micro second
+  Eq4 : 171148.6 micro second
 
 # List of files
 - Makefile
